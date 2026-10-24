@@ -6,7 +6,6 @@ import {
   Ticket,
   Calendar,
   FileText,
-  ShoppingCart,
   User,
   ChevronDown,
   Check,
@@ -65,7 +64,6 @@ export function Navbar({
     { id: 'queue', label: 'Queue', icon: Ticket },
     { id: 'appointments', label: 'Appointments', icon: Calendar },
     { id: 'prescriptions', label: 'Prescriptions', icon: FileText },
-    { id: 'pharmacy', label: 'Pharmacy', icon: ShoppingCart },
   ];
 
   const links = navLinks || (showPatientNav || role === 'patient' ? defaultPatientLinks : null);

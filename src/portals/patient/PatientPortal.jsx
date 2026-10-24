@@ -7,8 +7,6 @@ import {
   CheckCircle2,
   Download,
   Calendar,
-  HeartPulse,
-  ArrowRight,
 } from 'lucide-react';
 import { Navbar } from '../../shared/Navbar';
 import { PageHeader } from '../../shared/PageHeader';
@@ -59,8 +57,7 @@ export function PatientPortal() {
           />
         )}
 
-
-        {/* Tab 3: Appointments / Records */}
+        {/* Tab 2: Appointments / Records */}
         {activeTab === 'appointments' && (
           <div>
             <PageHeader
@@ -79,7 +76,7 @@ export function PatientPortal() {
           </div>
         )}
 
-        {/* Tab 4: Prescriptions */}
+        {/* Tab 3: Prescriptions */}
         {(activeTab === 'prescriptions' || activeTab === 'medicines') && (
           <div>
             <PageHeader
@@ -97,28 +94,6 @@ export function PatientPortal() {
                 <TodayReminders />
                 <DoseLogTable />
               </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tab 5: Pharmacy */}
-        {activeTab === 'pharmacy' && (
-          <div className="space-y-6">
-            <PageHeader
-              title="Hospital Pharmacy"
-              subtitle="Order prescribed medications for pickup or bedside delivery."
-            />
-            <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center max-w-lg mx-auto">
-              <div className="w-14 h-14 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center text-mediteal mx-auto mb-4">
-                <HeartPulse className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Pharmacy Counter Open</h3>
-              <p className="text-sm text-slate-500 mb-6">
-                Your prescribed Paracetamol 500mg and Cetirizine 10mg are ready at Counter B.
-              </p>
-              <Button variant="primary" onClick={() => setActiveTab('queue')}>
-                Return to Clinic Queue
-              </Button>
             </div>
           </div>
         )}
