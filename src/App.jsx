@@ -65,6 +65,15 @@ export default function App() {
             }
           />
 
+          <Route
+            path="/doctor/prescribe"
+            element={
+              <ProtectedRoute allowedRole="doctor">
+                <DoctorPortal />
+              </ProtectedRoute>
+            }
+          />
+
           {/* Catch-all redirect */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
