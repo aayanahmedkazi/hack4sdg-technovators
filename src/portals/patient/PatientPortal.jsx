@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { Clock, Pill, FileText, Ticket, CheckCircle2, Download } from 'lucide-react';
+import {
+  Clock,
+  Pill,
+  FileText,
+  Ticket,
+  CheckCircle2,
+  Download,
+  Calendar,
+} from 'lucide-react';
 import { Navbar } from '../../shared/Navbar';
-import { Tabs } from '../../shared/Tabs';
 import { PageHeader } from '../../shared/PageHeader';
 import { Button } from '../../shared/Button';
 import {
+  ClinicQueueSystem,
   PatientQueueCard,
   BookTokenPage,
 } from '../../modules/queue/index.js';
@@ -24,47 +32,58 @@ import {
 export function PatientPortal() {
   const [activeTab, setActiveTab] = useState('queue');
 
-  const tabs = [
-    { id: 'queue', label: 'Queue', icon: Clock },
-    { id: 'medicines', label: 'Medicines', icon: Pill },
-    { id: 'records', label: 'Records', icon: FileText },
-  ];
-
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Top Bar with brand on left, role and logout on right */}
-      <Navbar />
+    <div className="min-h-screen bg-[#F8FAFB] flex flex-col">
+      {/* Top Bar with MediFlow brand, centered navigation links, and profile */}
+      <Navbar
+        activeNav={activeTab}
+        onNavChange={setActiveTab}
+        showPatientNav={true}
+      />
 
-      {/* Portal Tabs placed directly under the top bar */}
-      <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
-
-      {/* Main Content centered at max-width 960px */}
-      <main className="flex-1 w-full max-w-content mx-auto px-4 sm:px-6 py-8">
+      {/* Main Content Area */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         
-        {/* Tab 1: Queue */}
-        {activeTab === 'queue' && (
+        {/* Tab 1: Queue / Home (Matching user's screenshot) */}
+        {(activeTab === 'queue' || activeTab === 'home') && (
+          <ClinicQueueSystem
+            initialTokenNumber={10}
+            initialNowServing={3}
+            initialDoctor={{
+              name: 'Dr. Sameer Khan',
+              speciality: 'Cardiology',
+              room: 'Room 1',
+              status: 'On Duty',
+            }}
+            initialPatientName="Aarav Sharma"
+            initialPhone="+91 98765 43210"
+          />
+        )}
+
+        {/* Tab 2: Appointments / Records */}
+        {activeTab === 'appointments' && (
           <div>
             <PageHeader
-              title="Your Clinic Queue"
-              subtitle="See your turn in line and know when the doctor is ready for you."
+              title="Your Health Records & Visits"
+              subtitle="View consultation summaries, upcoming visits, and doctor notes."
               action={
-                <Button variant="primary" icon={Ticket}>
-                  Take a Queue Number
+                <Button variant="secondary" icon={Download}>
+                  Download Summary
                 </Button>
               }
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <PatientQueueCard />
-              <BookTokenPage />
+              <PatientRecordsPage />
+              <RecordFolders />
             </div>
           </div>
         )}
 
-        {/* Tab 2: Medicines */}
-        {activeTab === 'medicines' && (
+        {/* Tab 3: Prescriptions */}
+        {(activeTab === 'prescriptions' || activeTab === 'medicines') && (
           <div>
             <PageHeader
-              title="Your Medicines Today"
+              title="Your Prescriptions & Daily Reminders"
               subtitle="Daily reminders so you never miss a dose."
               action={
                 <Button variant="primary" icon={CheckCircle2}>
@@ -87,25 +106,9 @@ export function PatientPortal() {
           </div>
         )}
 
-        {/* Tab 3: Records */}
-        {activeTab === 'records' && (
-          <div>
-            <PageHeader
-              title="Your Health Records"
-              subtitle="View visit summaries and doctor notes at any time."
-              action={
-                <Button variant="secondary" icon={Download}>
-                  Download Summary
-                </Button>
-              }
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <PatientRecordsPage />
-              <RecordFolders />
-            </div>
-          </div>
-        )}
       </main>
     </div>
   );
 }
+
+export default PatientPortal;
