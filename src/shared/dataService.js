@@ -12,7 +12,7 @@ import {
   onSnapshot,
   serverTimestamp,
 } from 'firebase/firestore';
-import { db, isConfigured } from './firebase';
+import { db, isConfigured } from './firebase.js';
 
 /**
  * Local demo fallback store (used when Firebase is running in offline demo mode)
@@ -27,7 +27,12 @@ const demoStore = {
     { id: 'hospital-main', name: 'MediFlow City Clinic' },
   ],
   doctors: [
-    { id: 'doc-001', userId: 'demo-doctor-001', hospitalId: 'hospital-main', name: 'Dr. Sameer Khan', speciality: 'General Physician' },
+    { id: 'doc-001', userId: 'demo-doctor-001', hospitalId: 'hospital-main', name: 'Dr. Sameer Khan', speciality: 'Cardiology', room: 'Room 1', status: 'On Duty' },
+    { id: 'doc-002', userId: 'demo-doctor-002', hospitalId: 'hospital-main', name: 'Dr. Ananya Sharma', speciality: 'General Medicine', room: 'Room 2', status: 'On Duty' },
+    { id: 'doc-003', userId: 'demo-doctor-003', hospitalId: 'hospital-main', name: 'Dr. Rajesh Rao', speciality: 'Pediatrics', room: 'Room 3', status: 'On Duty' },
+    { id: 'doc-004', userId: 'demo-doctor-004', hospitalId: 'hospital-main', name: 'Dr. Priya Mehta', speciality: 'Cardiology', room: 'Room 4', status: 'On Duty' },
+    { id: 'doc-005', userId: 'demo-doctor-005', hospitalId: 'hospital-main', name: 'Dr. Vikram Malhotra', speciality: 'Neurology', room: 'Room 5', status: 'On Duty' },
+    { id: 'doc-006', userId: 'demo-doctor-006', hospitalId: 'hospital-main', name: 'Dr. Sunita Patel', speciality: 'General Medicine', room: 'Room 6', status: 'On Duty' },
   ],
   patients: [
     { id: 'pat-001', userId: 'demo-patient-001', name: 'Aarav Sharma', age: 34, gender: 'Male', phone: '+91 98765 43210', address: 'B-104, Sunrise Apartments', hasSmartphone: true, registeredBy: 'demo-receptionist-001' },

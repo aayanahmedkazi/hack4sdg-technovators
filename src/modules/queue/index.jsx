@@ -42,29 +42,10 @@ function StubCard({ name, moduleName, description, icon: Icon, badgeVariant = 't
   );
 }
 
-export function BookTokenPage(props) {
-  return (
-    <StubCard
-      name="BookTokenPage"
-      moduleName="Queue"
-      icon={Ticket}
-      description="Takes a new clinic token with a single tap for hospital outpatient consultation."
-      {...props}
-    />
-  );
-}
-
-export function PatientQueueCard(props) {
-  return (
-    <StubCard
-      name="PatientQueueCard"
-      moduleName="Queue"
-      icon={Clock}
-      description="Shows your current queue number, doctors currently seeing patients, and estimated wait time."
-      {...props}
-    />
-  );
-}
+export { PatientQueueCard } from './PatientQueueCard';
+export { BookTokenPage } from './BookTokenPage';
+export { ClinicQueueSystem } from './ClinicQueueSystem';
+export { ClinicLoungeIllustration } from './ClinicLoungeIllustration';
 
 export function ReceptionTokenDesk(props) {
   return (
