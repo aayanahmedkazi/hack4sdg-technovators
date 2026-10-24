@@ -12,12 +12,22 @@ import {
   onSnapshot,
   serverTimestamp,
 } from 'firebase/firestore';
-import { db, isConfigured } from './firebase';
+import { db, isConfigured } from './firebase.js';
 
 /**
  * Local demo fallback store (used when Firebase is running in offline demo mode)
  */
-const demoStore = {
+function loadPersistedDemoStore() {
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const saved = localStorage.getItem('mediflow_demostore');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+  }
+  return null;
+}
+
+export const demoStore = loadPersistedDemoStore() || {
   users: [
     { id: 'demo-patient-001', name: 'Aarav Sharma', role: 'patient', phone: '+91 98765 43210' },
     { id: 'demo-receptionist-001', name: 'Priya Patel', role: 'receptionist', phone: '+91 98765 43211' },
@@ -165,6 +175,14 @@ export async function createDoctor(doctorData) {
 /* =========================================================================
    4. PATIENTS: id, userId, name, age, gender, phone, address, hasSmartphone, registeredBy
    ========================================================================= */
+
+export async function getPatients() {
+  if (isConfigured && db) {
+    const snap = await getDocs(collection(db, 'patients'));
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  return demoStore.patients || [];
+}
 
 export async function getPatient(patientId) {
   if (isConfigured && db) {
@@ -481,3 +499,41 @@ export function subscribeToSmsMessages(patientId, callback) {
   callback(demoStore.smsMessages.filter((s) => s.patientId === patientId));
   return () => {};
 }
+
+/* =========================================================================
+   DEMO STORE CONTROLS (For offline fallback and demo tools)
+   ========================================================================= */
+
+export function getDemoStore() {
+  return demoStore;
+}
+
+export function setDemoStore(newData) {
+  if (!newData) return;
+  Object.keys(newData).forEach((key) => {
+    if (Array.isArray(newData[key])) {
+      demoStore[key] = [...newData[key]];
+    }
+  });
+  if (typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem('mediflow_demostore', JSON.stringify(demoStore));
+    } catch (e) {
+      console.warn('Could not persist demoStore to localStorage:', e);
+    }
+  }
+}
+
+export function clearDemoStore() {
+  Object.keys(demoStore).forEach((key) => {
+    demoStore[key] = [];
+  });
+  if (typeof localStorage !== 'undefined') {
+    try {
+      localStorage.removeItem('mediflow_demostore');
+    } catch (e) {
+      console.warn('Could not clear demoStore from localStorage:', e);
+    }
+  }
+}
+
