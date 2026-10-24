@@ -43,13 +43,12 @@ export function DoctorPortal() {
   const [demoPatientId, setDemoPatientId] = useState(undefined);
   const patientId = demoPatientId !== undefined ? demoPatientId : livePatientId;
 
+  // Temporary flag in doctor dashboard to bypass day start check in dev mode
+  const skipDayStart = import.meta.env?.VITE_DEV_SKIP_DAY_START === 'true';
+  const canStartPrescribing = skipDayStart || dayStarted;
+
   const openPrescribePage = () => {
-    setInternalPage('prescribe');
-    try {
-      navigate('/doctor/prescribe');
-    } catch (e) {
-      // Fallback to internal page state if router route is not configured
-    }
+    navigate('/doctor/prescribe');
   };
 
   const openDashboardPage = () => {
@@ -106,14 +105,14 @@ export function DoctorPortal() {
                 variant="primary"
                 size="large"
                 fullWidth
-                disabled={!dayStarted}
+                disabled={!canStartPrescribing}
                 onClick={openPrescribePage}
                 className="!py-4 !text-lg !font-bold"
               >
                 Start prescribing →
               </Button>
 
-              {!dayStarted && (
+              {!canStartPrescribing && (
                 <p className="text-center text-sm text-slate-500 mt-2.5">
                   Please click "Start Clinic Day" above to enable prescribing.
                 </p>
