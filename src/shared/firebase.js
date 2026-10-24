@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // Read Firebase keys from environment variables
-const env = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : {};
+const env = (typeof import.meta !== 'undefined' && import.meta.env) || {};
 const firebaseConfig = {
   apiKey: env.VITE_FIREBASE_API_KEY,
   authDomain: env.VITE_FIREBASE_AUTH_DOMAIN,

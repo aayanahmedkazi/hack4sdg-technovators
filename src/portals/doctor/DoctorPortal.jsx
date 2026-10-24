@@ -20,6 +20,7 @@ import {
   CurrentPatientSheet,
   PastRecordsPanel,
 } from '../../modules/records/index.js';
+import { DoseLogTable } from '../../modules/reminders/index.js';
 
 export function DoctorPortal() {
   const { currentUser } = useAuth();
@@ -183,6 +184,9 @@ export function DoctorPortal() {
                 <div className="w-full md:w-[40%] space-y-6">
                   {/* CurrentPatientSheet on top */}
                   <CurrentPatientSheet patientId={patientId} />
+
+                  {/* DoseLogTable for doctor to check adherence */}
+                  <DoseLogTable patientId={patientId} />
                   
                   {/* PastRecordsPanel below it */}
                   <PastRecordsPanel patientId={patientId} />

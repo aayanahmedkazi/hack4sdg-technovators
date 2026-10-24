@@ -26,3 +26,6 @@ export const DEMO_USERS = {
     photoURL: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=120&q=80',
   },
 };
+
+export * from './seedDemoData.js';
+
