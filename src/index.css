@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply antialiased text-slate-800 bg-white font-sans;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Accessible focus outlines using the accent teal */
+  :focus-visible {
+    outline: 2px solid #0B5D5E;
+    outline-offset: 2px;
+  }
+}
