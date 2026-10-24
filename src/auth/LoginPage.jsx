@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { HeartPulse, ArrowRight, User, Users, Stethoscope, AlertCircle, LogIn } from 'lucide-react';
 import { useAuth } from './AuthContext';
 import { isConfigured } from '../shared/firebase';
@@ -220,6 +220,15 @@ export function LoginPage() {
             </Button>
           </form>
         </Card>
+
+        <div className="text-center mt-5">
+          <Link
+            to="/demo-tools"
+            className="text-xs text-slate-400 hover:text-mediteal transition-colors font-medium"
+          >
+            Developer Sandbox: Demo Tools & Firestore Seeder →
+          </Link>
+        </div>
       </div>
     </div>
   );

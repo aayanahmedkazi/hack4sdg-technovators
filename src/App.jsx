@@ -6,6 +6,7 @@ import { ProtectedRoute } from './auth/ProtectedRoute';
 import { PatientPortal } from './portals/patient/PatientPortal';
 import { ReceptionistPortal } from './portals/receptionist/ReceptionistPortal';
 import { DoctorPortal } from './portals/doctor/DoctorPortal';
+import { DemoToolsPage } from './demo/DemoToolsPage';
 
 function RootRedirect() {
   const { currentUser, role, loading } = useAuth();
@@ -34,6 +35,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<RootRedirect />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/demo-tools" element={<DemoToolsPage />} />
 
           {/* Role-protected Portals */}
           <Route

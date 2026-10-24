@@ -11,7 +11,10 @@ import {
 import {
   TodayReminders,
   ReminderAlarm,
+  TestReminders,
   DoseLogTable,
+  DemoClockControl,
+  SmsMockPanel,
 } from '../../modules/reminders/index.js';
 import {
   PatientRecordsPage,
@@ -71,9 +74,14 @@ export function PatientPortal() {
             />
             <div className="space-y-6">
               <ReminderAlarm />
+              <TestReminders />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <TodayReminders />
                 <DoseLogTable />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <DemoClockControl />
+                <SmsMockPanel />
               </div>
             </div>
           </div>
